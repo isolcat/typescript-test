@@ -1,6 +1,8 @@
 // 引入一个包
 const path = require('path');
-
+// 引入html插件
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // webpack中的所有配置信息都应该写在module.exports中
 module.exports = {
     // 指定入口文件
@@ -22,5 +24,14 @@ module.exports = {
             // 要排除的文件(一般是排除掉node_modules中的文件，因为太大了 后续如果需要加载的话也可以用配置文件加载)
             exclude: /node_modules/
         }]
-    }
+    },
+    // 配置webpack插件
+    plugins: [
+        // 自动生成html文件，并且引入相关的资源
+        new HTMLWebpackPlugin(options = {
+            title: "这是一个自定义的title",
+        }),
+        // 清除打包目录
+        new CleanWebpackPlugin()
+    ]
 }
